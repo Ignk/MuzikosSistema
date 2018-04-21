@@ -1,0 +1,51 @@
+﻿@model MuzikosSistema.Models.Song
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Song</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SongName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SongName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Added)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Added)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SongArtist.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SongArtist.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Style1.StyleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Style1.StyleName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -20,7 +20,7 @@ namespace MuzikosSistema.Models
             this.Comment = new HashSet<Comment>();
             this.History = new HashSet<History>();
             this.ListenerRecomendation = new HashSet<ListenerRecomendation>();
-            this.SongArtist = new HashSet<SongArtist>();
+            this.SongArtist1 = new HashSet<SongArtist>();
             this.SongLink = new HashSet<SongLink>();
             this.SongRecomandation = new HashSet<SongRecomandation>();
             this.SongRecomandation1 = new HashSet<SongRecomandation>();
@@ -32,16 +32,16 @@ namespace MuzikosSistema.Models
         public Nullable<System.DateTime> Added { get; set; }
         public Nullable<int> Style { get; set; }
     
-        public virtual Artist Artist1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History> History { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ListenerRecomendation> ListenerRecomendation { get; set; }
+        public virtual SongArtist SongArtist { get; set; }
         public virtual Style Style1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SongArtist> SongArtist { get; set; }
+        public virtual ICollection<SongArtist> SongArtist1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SongLink> SongLink { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -14,11 +14,20 @@ namespace MuzikosSistema.Models
     
     public partial class SongArtist
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SongArtist()
+        {
+            this.Song1 = new HashSet<Song>();
+        }
+    
         public int Id { get; set; }
-        public int Song { get; set; }
-        public int Artist { get; set; }
+        public Nullable<int> Song { get; set; }
+        public Nullable<int> Artist { get; set; }
+        public string Name { get; set; }
     
         public virtual Artist Artist1 { get; set; }
-        public virtual Song Song1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Song> Song1 { get; set; }
+        public virtual Song Song2 { get; set; }
     }
 }

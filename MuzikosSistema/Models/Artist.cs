@@ -17,7 +17,6 @@ namespace MuzikosSistema.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Artist()
         {
-            this.Song = new HashSet<Song>();
             this.SongArtist = new HashSet<SongArtist>();
         }
     
@@ -31,8 +30,6 @@ namespace MuzikosSistema.Models
         public string InfoPage { get; set; }
     
         public virtual Style Style1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Song> Song { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SongArtist> SongArtist { get; set; }
     }
