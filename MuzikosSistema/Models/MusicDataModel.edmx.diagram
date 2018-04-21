@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0cb3526b95fe423daf321e539af7ff31" Name="Diagram1">
+        <EntityTypeShape EntityType="MusicDBModel.Artist" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.Comment" Width="1.5" PointX="7.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.History" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.ListenerProfile" Width="1.5" PointX="0.875" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.ListenerRecomendation" Width="1.5" PointX="6.875" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.ListenerStyles" Width="1.5" PointX="3.125" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.Song" Width="1.5" PointX="5.125" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.SongArtist" Width="1.5" PointX="8.875" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.SongLink" Width="1.5" PointX="9.375" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.SongLinkTypes" Width="1.5" PointX="8.875" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.SongRecomandation" Width="1.5" PointX="5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDBModel.Style" Width="1.5" PointX="1.125" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="MusicDBModel.FK_Artist_ToStyle" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_Song_ToArtist" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_SongArtist_ToArtist" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_Comment_ToSong" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_History_ToSong" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_ListenerStyles_ToListenerProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_ListenerRecomendation_ToSong" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_ListenerStyles_ToStyle" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_Song_ToStyle" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_SongArtist_ToSong" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_SongLink_ToSong" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_SongRecomandation_ToSong" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_SongRecomandation_ToSongs" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDBModel.FK_SongLink_ToSongLinkTypes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
