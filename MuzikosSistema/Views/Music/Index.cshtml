@@ -5,24 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Dainos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Sukurti naują dainos įrašą", "Create")
 </p>
 <table class="table">
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.SongName)
+           Atlikėjas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Added)
+           Dainos pavadinimas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SongArtist.Name)
+           Stilius
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Style1.StyleName)
+           Įvesta
         </th>
         <th></th>
     </tr>
@@ -30,21 +31,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.SongName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Added)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.SongArtist.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SongName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Style1.StyleName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Added)
+        </td>
+        <td>
+            @Html.ActionLink("Redaguoti", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Plačiau", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Pašalinti", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

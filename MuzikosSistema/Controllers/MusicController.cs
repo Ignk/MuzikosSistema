@@ -9,6 +9,7 @@ namespace MuzikosSistema.Controllers
 {
     public class MusicController : Controller
     {
+
         private MusicDBEntities _entities = new MusicDBEntities();
         // GET: Music
         public ActionResult Index()
@@ -25,6 +26,12 @@ namespace MuzikosSistema.Controllers
         // GET: Music/Create
         public ActionResult Create()
         {
+            var artists = new SelectList(_entities.SongArtist, "Id", "Name");
+            ViewData["Artists"] = artists;
+
+            var style = new SelectList(_entities.Style, "Id", "StyleName");
+            ViewData["Style"] = style;
+
             return View();
         }
 
@@ -47,6 +54,12 @@ namespace MuzikosSistema.Controllers
         // GET: Music/Edit/5
         public ActionResult Edit(int id)
         {
+            var artists = new SelectList(_entities.SongArtist, "Id", "Name", _entities.Song.Find(id).SongArtist1);
+            ViewData["ArtistsList"] = artists;
+
+            var style = new SelectList(_entities.Style, "Id", "StyleName",_entities.Song.Find(id).Style1);
+            ViewData["StyleList"] = style;
+
             return View(_entities.Song.Find(id));
         }
 
