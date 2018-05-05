@@ -348,6 +348,7 @@
     <Content Include="Views\Artist\CreateArtist.cshtml" />
     <Content Include="Views\Artist\EditArtist.cshtml" />
     <Content Include="Views\Artist\DeleteArtist.cshtml" />
+    <Content Include="Views\Music\CreateSongLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

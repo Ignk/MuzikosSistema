@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<MuzikosSistema.Models.SongArtist>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Atlikėjai";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Atlikėjai</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Sukurti naują atlikėją", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Atlikėjas/Grupė
         </th>
        
         <th></th>
@@ -26,9 +26,9 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Redaguoti", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Plačiau", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Pašalinti", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

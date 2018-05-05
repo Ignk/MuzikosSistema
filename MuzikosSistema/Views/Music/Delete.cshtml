@@ -1,19 +1,18 @@
 ﻿@model MuzikosSistema.Models.Song
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Pašalinti dainą";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Pašalinti dainą</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Ar jūs tikrai norite pašalinti @Html.DisplayFor(model => model.SongArtist.Name) - @Html.DisplayFor(model => model.SongName)  ?</h3>
 <div>
-    <h4>Song</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.SongName)
+            Dainos pavadinimas
         </dt>
 
         <dd>
@@ -21,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Added)
+            Įkelta
         </dt>
 
         <dd>
@@ -29,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SongArtist.Name)
+            Grupė/Atlikėjas
         </dt>
 
         <dd>
@@ -37,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Style1.StyleName)
+            Stilius
         </dt>
 
         <dd>
@@ -50,8 +49,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Pašalinti" class="btn btn-default" /> |
+            @Html.ActionLink("Grįžti į sąrašą", "Index")
         </div>
     }
 </div>

@@ -9,6 +9,8 @@ namespace MuzikosSistema.Models
     {
         public SongArtist songArtist { get; set; }
         public List<Artist> artists { get; set; }
+        public List<Song> songs { get; set; }
+
     }
 
     public class SongConsist
@@ -19,6 +21,8 @@ namespace MuzikosSistema.Models
         public string spotifyLink { get; set; }
         public string deezerLink { get; set; }
         public string soundCloudLink { get; set; }
+        public List<Song> artistSongs { get; set; }
+        public Boolean existsOtherSongs { get; set; }
 
     }
 }

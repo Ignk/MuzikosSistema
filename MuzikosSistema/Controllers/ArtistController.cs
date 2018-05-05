@@ -22,6 +22,7 @@ namespace MuzikosSistema.Controllers
             ArtistConsist artistConsist = new ArtistConsist();
             artistConsist.songArtist    = _entities.SongArtist.Find(id);
             artistConsist.artists = _entities.Artist.ToList().Where(a => a.SongArtist == id).ToList();
+            artistConsist.songs = _entities.Song.ToList().Where(a => a.SongArtist.Id == id).ToList();
             return View(artistConsist);
         }
 
@@ -95,10 +96,10 @@ namespace MuzikosSistema.Controllers
         // GET: Artist/CreateArtist/5
         public ActionResult CreateArtist(int id)
         {
-            var style = new SelectList(_entities.Style, "Id", "StyleName");
+            var style = new SelectList(_entities.Style.OrderBy(a => a.StyleName), "Id", "StyleName");
             ViewData["Style"] = style;
 
-            var songArtist = new SelectList(_entities.SongArtist, "Id", "Name", id);
+            var songArtist = new SelectList(_entities.SongArtist.OrderBy(a => a.Name), "Id", "Name", id);
             ViewData["SongArtistList"] = songArtist;
 
             return View();
@@ -112,7 +113,7 @@ namespace MuzikosSistema.Controllers
             {
                 _entities.Artist.Add(artistToCreate);
                 _entities.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Artist", _entities.SongArtist.Find(artistToCreate.SongArtist));
             }
             catch
             {
@@ -123,10 +124,10 @@ namespace MuzikosSistema.Controllers
         // GET: Artist/EditArtist/5
         public ActionResult EditArtist(int id)
         {
-            var style = new SelectList(_entities.Style, "Id", "StyleName");
+            var style = new SelectList(_entities.Style.OrderBy(a => a.StyleName), "Id", "StyleName");
             ViewData["StyleList"] = style;
 
-            var songArtist = new SelectList(_entities.SongArtist, "Id", "Name", id);
+            var songArtist = new SelectList(_entities.SongArtist.OrderBy(a => a.Name), "Id", "Name", id);
             ViewData["SongArtistList"] = songArtist;
 
             return View(_entities.Artist.Find(id));
@@ -140,7 +141,8 @@ namespace MuzikosSistema.Controllers
             {
                 _entities.Entry(artistToEdit).State = System.Data.Entity.EntityState.Modified;
                 _entities.SaveChanges();
-                return RedirectToAction("Index");
+               return RedirectToAction("Details", "Artist", _entities.SongArtist.Find(artistToEdit.SongArtist));
+                
             }
             catch
             {

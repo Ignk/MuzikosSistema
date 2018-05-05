@@ -1,19 +1,18 @@
 ﻿@model MuzikosSistema.Models.SongArtist
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Trinti atlikėją/grupę";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Trinti atlikėją/grupę</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Ar tikrai norite ištrinti?</h3>
 <div>
-    <h4>SongArtist</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Atlikėjas/Grupė
         </dt>
 
         <dd>
@@ -26,8 +25,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Šalinti" class="btn btn-default" /> |
+            @Html.ActionLink("Grįžti į sąrašą", "Index")
         </div>
     }
 </div>

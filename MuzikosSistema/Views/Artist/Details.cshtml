@@ -1,27 +1,16 @@
 ﻿@model MuzikosSistema.Models.ArtistConsist
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Html.DisplayFor(model => model.songArtist.Name);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Atlikėjas/Grupė</h2>
+<h2> @Html.DisplayFor(model => model.songArtist.Name)</h2>
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Pavadinimas
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.songArtist.Name)
-        </dd>
-
-    </dl>
-    <p>
-        @Html.ActionLink("Redaguoti", "Edit", new { id = Model.songArtist.Id }) 
-    </p>
+    <h4> Sudėtis </h4>
     <p>
         @Html.ActionLink("Pridėti asmenį", "CreateArtist", new { id = Model.songArtist.Id })
     </p>
@@ -41,9 +30,6 @@
             </th>
             <th>
                 Rolė
-            </th>
-            <th>
-                Grupė
             </th>
             <th>
                 Stilius
@@ -70,23 +56,63 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SongArtist1.Name)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Style1.StyleName)
                 </td>
                 <td>
                     @Html.ActionLink("Redaguoti", "EditArtist", new { id = item.Id }) |
-                    <a href=@Html.DisplayFor(modelItem => item.InfoPage)>Informacija </a>|
+                    @if (item.InfoPage != null)
+                    {
+                        <a href=@Html.DisplayFor(modelItem => item.InfoPage)>Informacija </a> <text>|</text>
+                    }
                     @Html.ActionLink("Pašalinti", "DeleteArtist", new { id = item.Id })
                 </td>
             </tr>
         }
     </table>
+    <h4> Kūriniai </h4>
+    <table class="table">
+        <tr>
+
+            <th>
+                Dainos pavadinimas
+            </th>
+            <th>
+                Stilius
+            </th>
+            <th>
+                Įvesta
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.songs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SongName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Style1.StyleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Added)
+                </td>
+                <td>
+                    @Html.ActionLink("Redaguoti", "Edit/" + item.Id, "Music") |
+                    @Html.ActionLink("Klausyti", "Details/" + item.Id, "Music") |
+                    @Html.ActionLink("Pašalinti", "Delete/" + item.Id, "Music")
+                </td>
+            </tr>
+        }
+
+    </table>
 
 </div>
-    
+
 
 <p>
+    @Html.ActionLink("Pridėti dainą", "Create/" + Model.songArtist.Id, "Music") ||
+    @Html.ActionLink("Redaguoti", "Edit", new { id = Model.songArtist.Id }) ||
     @Html.ActionLink("Sugrįžti į atlikėjų sąrašą", "Index")
 </p>
+

@@ -1,7 +1,7 @@
 ﻿@model MuzikosSistema.Models.Song
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Redaguoti";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,13 +13,12 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Song</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Artist, "Artist", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("Atlikėjas/Grupė", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("Artist", ViewData["ArtistsList"] as SelectList, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Artist, "", new { @class = "text-danger" })
@@ -27,7 +26,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.SongName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("Dainos pavadinimas", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.SongName, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.SongName, "", new { @class = "text-danger" })
@@ -35,7 +34,7 @@
     </div>
     
     <div class="form-group">
-        @Html.LabelFor(model => model.Style, "Style", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("Stilius", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("Style", ViewData["StyleList"] as SelectList, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Style, "", new { @class = "text-danger" })
@@ -43,7 +42,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Added, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("Įkelta", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Added, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Added, "", new { @class = "text-danger" })
@@ -60,7 +59,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Grįžti į sąrašą", "Index")
 </div>
 
 @section Scripts {
