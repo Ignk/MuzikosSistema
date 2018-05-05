@@ -1,0 +1,92 @@
+﻿@model MuzikosSistema.Models.ArtistConsist
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Atlikėjas/Grupė</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Pavadinimas
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.songArtist.Name)
+        </dd>
+
+    </dl>
+    <p>
+        @Html.ActionLink("Redaguoti", "Edit", new { id = Model.songArtist.Id }) 
+    </p>
+    <p>
+        @Html.ActionLink("Pridėti asmenį", "CreateArtist", new { id = Model.songArtist.Id })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Vardas
+            </th>
+            <th>
+                Pavardė
+            </th>
+            <th>
+                Tautybė
+            </th>
+            <th>
+                Gimimo data
+            </th>
+            <th>
+                Rolė
+            </th>
+            <th>
+                Grupė
+            </th>
+            <th>
+                Stilius
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.artists)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nationality)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SongArtist1.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Style1.StyleName)
+                </td>
+                <td>
+                    @Html.ActionLink("Redaguoti", "EditArtist", new { id = item.Id }) |
+                    <a href=@Html.DisplayFor(modelItem => item.InfoPage)>Informacija </a>|
+                    @Html.ActionLink("Pašalinti", "DeleteArtist", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+    
+
+<p>
+    @Html.ActionLink("Sugrįžti į atlikėjų sąrašą", "Index")
+</p>

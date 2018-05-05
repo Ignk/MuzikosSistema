@@ -20,7 +20,6 @@ namespace MuzikosSistema.Models
             this.Comment = new HashSet<Comment>();
             this.History = new HashSet<History>();
             this.ListenerRecomendation = new HashSet<ListenerRecomendation>();
-            this.SongArtist1 = new HashSet<SongArtist>();
             this.SongLink = new HashSet<SongLink>();
             this.SongRecomandation = new HashSet<SongRecomandation>();
             this.SongRecomandation1 = new HashSet<SongRecomandation>();
@@ -40,8 +39,6 @@ namespace MuzikosSistema.Models
         public virtual ICollection<ListenerRecomendation> ListenerRecomendation { get; set; }
         public virtual SongArtist SongArtist { get; set; }
         public virtual Style Style1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SongArtist> SongArtist1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SongLink> SongLink { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

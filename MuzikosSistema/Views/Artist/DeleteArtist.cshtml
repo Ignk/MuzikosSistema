@@ -1,0 +1,88 @@
+﻿@model MuzikosSistema.Models.Artist
+
+@{
+    ViewBag.Title = "DeleteArtist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Pašalinti asmenį</h2>
+
+<h3>Ar jūs tikrai norite pašalinti?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Vardas
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Pavardė
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            Tautybė
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nationality)
+        </dd>
+
+        <dt>
+            Gimimo data
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            Rolė
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+        <dt>
+           Informacija
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InfoPage)
+        </dd>
+
+        <dt>
+            Atlikėjo/Grupės pavadinimas
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SongArtist1.Name)
+        </dd>
+
+        <dt>
+            Stilius
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Style1.StyleName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Pašalinti" class="btn btn-default" /> |
+            @Html.ActionLink("Grįžti į sarašą", "Index")
+        </div>
+    }
+</div>
