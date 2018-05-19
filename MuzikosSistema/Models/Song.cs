@@ -30,6 +30,8 @@ namespace MuzikosSistema.Models
         public Nullable<int> Artist { get; set; }
         public Nullable<System.DateTime> Added { get; set; }
         public Nullable<int> Style { get; set; }
+        public string TimePeriod { get; set; }
+        public string Language { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }

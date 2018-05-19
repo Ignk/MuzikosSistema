@@ -37,5 +37,6 @@ namespace MuzikosSistema.Models
         public virtual DbSet<SongLinkTypes> SongLinkTypes { get; set; }
         public virtual DbSet<SongRecomandation> SongRecomandation { get; set; }
         public virtual DbSet<Style> Style { get; set; }
+        public virtual DbSet<SongArtistType> SongArtistType { get; set; }
     }
 }

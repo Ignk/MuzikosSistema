@@ -3,18 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MuzikosSistema.Models;
+using PagedList;
 
 namespace MuzikosSistema.Controllers
 {
+    [Authorize]
     public class MusicController : Controller
     {
 
         private MusicDBEntities _entities = new MusicDBEntities();
         // GET: Music
-        public ActionResult Index()
+       /* public ActionResult Index()
         {
             return View(_entities.Song.ToList().OrderBy(x => x.SongName));
+        }*/
+        public ActionResult Index(string option, string search, int? pageNumber)
+        {
+
+            //if a user choose the radio button option as Subject  
+            if (option == "Artist")
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(_entities.Song.Where(x => x.SongArtist.Name.Contains(search) || search == null).ToList().OrderBy(x => x.SongName).ToPagedList(pageNumber ?? 1, 15));
+            }
+            else if (option == "Song")
+            {
+                return View(_entities.Song.Where(x => x.SongName.Contains(search) || search == null).ToList().OrderBy(x => x.SongName).ToPagedList(pageNumber ?? 1, 15));
+            }
+            else if (option == "TimePeriod")
+            {
+                return View(_entities.Song.Where(x => x.TimePeriod.Contains(search) || search == null).ToList().OrderBy(x => x.SongName).ToPagedList(pageNumber ?? 1, 15));
+            }
+            else if (option == "Language")
+            {
+                return View(_entities.Song.Where(x => x.Language.Contains(search) || search == null).ToList().OrderBy(x => x.SongName).ToPagedList(pageNumber ?? 1, 15));
+            }
+            else 
+            {
+                return View(_entities.Song.Where(x => x.Style1.StyleName.Contains(search) || search == null).ToList().OrderBy(x => x.SongName).ToPagedList(pageNumber ?? 1, 15));
+            }
         }
 
         // GET: Music/Details/5
@@ -22,6 +51,7 @@ namespace MuzikosSistema.Controllers
         {
             SongConsist songConsist = new SongConsist();
             songConsist.song = _entities.Song.Find(id);
+
             if (_entities.SongLink.ToList().Exists(a => a.Type == 1 && a.Song == id))
             {
                 songConsist.youtubeLink = _entities.SongLink.ToList().Where(a => a.Type == 1 && a.Song == id).First().Link;
@@ -43,20 +73,38 @@ namespace MuzikosSistema.Controllers
             songConsist.artistSongs = _entities.Song.ToList().Where(a => a.SongArtist.Id == songConsist.song.Artist && a.Id != id).ToList();
             songConsist.existsOtherSongs = songConsist.artistSongs.Any();
 
+            songConsist.comments = _entities.Comment.ToList().Where(a => a.Song == id).ToList();
+            songConsist.existsComments = songConsist.comments.Any();
+
+            songConsist.userCount = this.CountHistory(User.Identity.GetUserName(), id);
+            songConsist.totalCount = _entities.History.Where(h => h.Song == id).Sum(h => h.Count);
+
+
             return View(songConsist);
         }
 
-      /*  // GET: Music/Create
-        public ActionResult Create()
+        public int CountHistory(String userName, int songId)
         {
-            var artists = new SelectList(_entities.SongArtist.OrderBy(a => a.Name), "Id", "Name");
-            ViewData["Artists"] = artists;
+            History history = _entities.History.Where(h => h.Song == songId && h.Username == userName).FirstOrDefault();
+            
+            if (history  == null)
+            {
+                history = new History();
+                history.Song = songId;
+                history.Username = userName;
+                history.Count = 1;
+                _entities.History.Add(history);
+            }
+            else
+            {
+                history.Count++;
+                _entities.Entry(history).State = System.Data.Entity.EntityState.Modified;
+            }
+            _entities.SaveChanges();
 
-            var style = new SelectList(_entities.Style.OrderBy(a => a.StyleName), "Id", "StyleName");
-            ViewData["Style"] = style;
+            return history.Count;
+        }
 
-            return View();
-        }*/
 
         // GET: Music/Create/5
         public ActionResult Create(int id = 1)
@@ -175,5 +223,39 @@ namespace MuzikosSistema.Controllers
                 return View();
             }
         }
+
+        // GET: Artist/CreateComment/5
+        public ActionResult CreateComment(int id)
+        {
+            Comment comment = new Comment();
+            comment.Song1 = _entities.Song.Find(id);
+            return View(comment);
+        }
+
+        // POST: Artist/CreateComment
+        [HttpPost]
+        public ActionResult CreateComment(int id, Comment comment)
+        {
+            try
+            {
+                string email = User.Identity.GetUserName();
+                ListenerProfile listenerProfile = _entities.ListenerProfile.Where(p => p.Email == email).FirstOrDefault();
+                if (listenerProfile == null)
+                    comment.Author = User.Identity.GetUserName();
+                else
+                    comment.Author = listenerProfile.Username;
+
+                comment.Song = id;
+                _entities.Comment.Add(comment);
+                _entities.SaveChanges();
+
+                return RedirectToAction("Details", _entities.Song.Find(id));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
     }
 }

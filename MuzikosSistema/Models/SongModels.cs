@@ -23,6 +23,27 @@ namespace MuzikosSistema.Models
         public string soundCloudLink { get; set; }
         public List<Song> artistSongs { get; set; }
         public Boolean existsOtherSongs { get; set; }
+        public int totalCount { get; set; }
+        public int userCount { get; set; }
+        public Boolean existsComments { get; set; }
+        public List<Comment> comments { get; set; }
+    }
+    public class ListenerConsist
+    {
+        public ListenerProfile listener { get; set; }
+        public List<ListenerStyles> styles { get; set; }
+    }
 
+    public class Recomendation
+    {
+        public List<Song> mostPopularList { get; set; }
+        public List<Song> recomendedList { get; set; }
+    }
+
+    public class SongListenCount
+    {
+        public Song song { get; set; }
+        public int totalCount { get; set; }
+        
     }
 }

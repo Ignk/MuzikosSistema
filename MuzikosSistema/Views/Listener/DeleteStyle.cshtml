@@ -1,0 +1,26 @@
+﻿@model MuzikosSistema.Models.ListenerStyles
+
+@{
+    ViewBag.Title = "DeleteStyle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteStyle</h2>
+
+<h3>Ar tikrai norite pašalinti @Html.DisplayFor(model => model.Style1.StyleName) iš savo profilio?</h3>
+@Html.HiddenFor(model => model.ListenerProfile.Username)
+@Html.HiddenFor(model => model.Style1.StyleName)
+<div>
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Šalinti" class="btn btn-default" /> 
+        </div>
+        <div>
+            @Html.ActionLink("Grįžti į profilį", "ListenerProfile")
+        </div>
+    }
+</div>

@@ -1,11 +1,27 @@
-﻿@model IEnumerable<MuzikosSistema.Models.SongArtist>
+﻿@using PagedList;
+
+@using PagedList.Mvc;
+
+@model IPagedList<MuzikosSistema.Models.SongArtist>
+<h2>Atlikėjai</h2>
 
 @{
     ViewBag.Title = "Atlikėjai";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Atlikėjai</h2>
+@using (Html.BeginForm("Index", "Artist", FormMethod.Get))
+{
+    //the following are search options
+
+    @Html.RadioButton("option", "Artist") <text > Atlikėjas/Grupė</text>
+    @Html.RadioButton("option", "Type") <text > Tipas</text>
+    <br>
+    @Html.TextBox("search", null, new { style = "width:5000px" })
+    <input type="submit" name="submit" value="Ieškoti" class="btn btn-default" />
+
+}
+
 
 <p>
     @Html.ActionLink("Sukurti naują atlikėją", "Create")
@@ -15,22 +31,34 @@
         <th>
             Atlikėjas/Grupė
         </th>
-       
+        <th>
+            Tipas
+        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        
         <td>
-            @Html.ActionLink("Redaguoti", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Plačiau", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Pašalinti", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.SongArtistType.TypeName)
+        </td>
+
+        <td>
+            @Html.ActionLink("Redaguoti", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Plačiau", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Pašalinti", "Delete", new { id = item.Id })
         </td>
     </tr>
-}
-
+    }
+    @Html.PagedListPager(Model, pageNumber => Url.Action("Index", new
+    {
+        pageNumber,
+        option = Request.QueryString["option"],
+        search = Request.QueryString["search"]
+    }))
 </table>

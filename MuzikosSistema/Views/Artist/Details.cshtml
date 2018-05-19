@@ -5,8 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2> @Html.DisplayFor(model => model.songArtist.Name)</h2>
-
+        <h2>@Model.songArtist.SongArtistType.TypeName @Model.songArtist.Name</h2>
+    
+@if (Model.songArtist.PhotoLink != null)
+{
+        <img src="@Url.Content(Model.songArtist.PhotoLink)" alt="IMAGES"  width="400" />
+}
 <div>
     <hr />
 
@@ -80,6 +84,9 @@
                 Stilius
             </th>
             <th>
+                Kalba
+            </th>
+            <th>
                 Įvesta
             </th>
             <th></th>
@@ -87,22 +94,25 @@
 
         @foreach (var item in Model.songs)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SongName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Style1.StyleName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Added)
-                </td>
-                <td>
-                    @Html.ActionLink("Redaguoti", "Edit/" + item.Id, "Music") |
-                    @Html.ActionLink("Klausyti", "Details/" + item.Id, "Music") |
-                    @Html.ActionLink("Pašalinti", "Delete/" + item.Id, "Music")
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SongName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Style1.StyleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Added)
+            </td>
+            <td>
+                @Html.ActionLink("Redaguoti", "Edit/" + item.Id, "Music") |
+                @Html.ActionLink("Klausyti", "Details/" + item.Id, "Music") |
+                @Html.ActionLink("Pašalinti", "Delete/" + item.Id, "Music")
+            </td>
+        </tr>
         }
 
     </table>

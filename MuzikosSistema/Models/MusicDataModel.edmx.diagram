@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0cb3526b95fe423daf321e539af7ff31" Name="Diagram1" ZoomLevel="114">
-        <EntityTypeShape EntityType="MusicDBModel.Artist" Width="1.5" PointX="3" PointY="11" />
-        <EntityTypeShape EntityType="MusicDBModel.Comment" Width="1.5" PointX="8.25" PointY="3.25" />
-        <EntityTypeShape EntityType="MusicDBModel.History" Width="1.5" PointX="8.25" PointY="11.875" />
-        <EntityTypeShape EntityType="MusicDBModel.ListenerProfile" Width="1.5" PointX="3.75" PointY="15.5" />
-        <EntityTypeShape EntityType="MusicDBModel.ListenerRecomendation" Width="1.5" PointX="8.25" PointY="14.75" />
-        <EntityTypeShape EntityType="MusicDBModel.ListenerStyles" Width="1.5" PointX="6" PointY="11.5" />
+      <Diagram DiagramId="0cb3526b95fe423daf321e539af7ff31" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="MusicDBModel.Artist" Width="1.5" PointX="4" PointY="10.25" />
+        <EntityTypeShape EntityType="MusicDBModel.Comment" Width="1.5" PointX="2.5" PointY="7.25" />
+        <EntityTypeShape EntityType="MusicDBModel.History" Width="1.5" PointX="9.875" PointY="9.75" />
+        <EntityTypeShape EntityType="MusicDBModel.ListenerProfile" Width="1.5" PointX="0.5" PointY="7.375" />
+        <EntityTypeShape EntityType="MusicDBModel.ListenerRecomendation" Width="1.5" PointX="8" PointY="11.25" />
+        <EntityTypeShape EntityType="MusicDBModel.ListenerStyles" Width="1.5" PointX="6.125" PointY="10.5" />
         <EntityTypeShape EntityType="MusicDBModel.Song" Width="1.5" PointX="6" PointY="6.75" />
-        <EntityTypeShape EntityType="MusicDBModel.SongArtist" Width="1.5" PointX="3.75" PointY="7.625" />
-        <EntityTypeShape EntityType="MusicDBModel.SongLink" Width="1.5" PointX="11.25" PointY="7.5" />
-        <EntityTypeShape EntityType="MusicDBModel.SongLinkTypes" Width="1.5" PointX="9" PointY="0.75" />
-        <EntityTypeShape EntityType="MusicDBModel.SongRecomandation" Width="1.5" PointX="8.25" PointY="8.875" />
-        <EntityTypeShape EntityType="MusicDBModel.Style" Width="1.5" PointX="0.75" PointY="11.5" />
+        <EntityTypeShape EntityType="MusicDBModel.SongArtist" Width="1.5" PointX="4.25" PointY="7.5" />
+        <EntityTypeShape EntityType="MusicDBModel.SongLink" Width="1.5" PointX="10" PointY="7.5" />
+        <EntityTypeShape EntityType="MusicDBModel.SongLinkTypes" Width="1.5" PointX="7.875" PointY="6.125" />
+        <EntityTypeShape EntityType="MusicDBModel.SongRecomandation" Width="1.5" PointX="8" PointY="8.375" />
+        <EntityTypeShape EntityType="MusicDBModel.Style" Width="1.5" PointX="1.875" PointY="10" />
         <AssociationConnector Association="MusicDBModel.FK_Artist_ToSongArtist" />
         <AssociationConnector Association="MusicDBModel.FK_Artist_ToStyle" />
         <AssociationConnector Association="MusicDBModel.FK_Comment_ToSong" />
@@ -30,6 +30,8 @@
         <AssociationConnector Association="MusicDBModel.FK_SongRecomandation_ToSong" />
         <AssociationConnector Association="MusicDBModel.FK_SongRecomandation_ToSongs" />
         <AssociationConnector Association="MusicDBModel.FK_SongLink_ToSongLinkTypes" />
+        <EntityTypeShape EntityType="MusicDBModel.SongArtistType" Width="1.5" PointX="2" PointY="4.75" />
+        <AssociationConnector Association="MusicDBModel.FK_SongArtist_SongArtistType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

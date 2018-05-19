@@ -23,10 +23,13 @@ namespace MuzikosSistema.Models
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Type { get; set; }
+        public string PhotoLink { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Artist> Artist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Song> Song { get; set; }
+        public virtual SongArtistType SongArtistType { get; set; }
     }
 }

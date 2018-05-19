@@ -12,21 +12,18 @@ namespace MuzikosSistema.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ListenerProfile
+    public partial class SongArtistType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ListenerProfile()
+        public SongArtistType()
         {
-            this.ListenerStyles = new HashSet<ListenerStyles>();
+            this.SongArtist = new HashSet<SongArtist>();
         }
     
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Nationality { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
-        public string Email { get; set; }
+        public string TypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ListenerStyles> ListenerStyles { get; set; }
+        public virtual ICollection<SongArtist> SongArtist { get; set; }
     }
 }

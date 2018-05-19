@@ -43,9 +43,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
           <Property Name="BirthDate" Type="date" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ListenerRecomendation">
           <Key>
@@ -73,13 +74,24 @@
           <Property Name="Artist" Type="int" />
           <Property Name="Added" Type="datetime" />
           <Property Name="Style" Type="int" />
+          <Property Name="TimePeriod" Type="nvarchar" MaxLength="50" />
+          <Property Name="Language" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SongArtist">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="PhotoLink" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SongArtistType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SongLink">
           <Key>
@@ -221,6 +233,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SongArtist_SongArtistType">
+          <End Role="SongArtistType" Type="Self.SongArtistType" Multiplicity="1" />
+          <End Role="SongArtist" Type="Self.SongArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SongArtistType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SongArtist">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SongLink_ToSong">
           <End Role="Song" Type="Self.Song" Multiplicity="1" />
           <End Role="SongLink" Type="Self.SongLink" Multiplicity="*" />
@@ -278,6 +302,7 @@
           <EntitySet Name="ListenerStyles" EntityType="Self.ListenerStyles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Song" EntityType="Self.Song" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SongArtist" EntityType="Self.SongArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SongArtistType" EntityType="Self.SongArtistType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SongLink" EntityType="Self.SongLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SongLinkTypes" EntityType="Self.SongLinkTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SongRecomandation" EntityType="Self.SongRecomandation" Schema="dbo" store:Type="Tables" />
@@ -317,6 +342,10 @@
           <AssociationSet Name="FK_Song_ToStyle" Association="Self.FK_Song_ToStyle">
             <End Role="Style" EntitySet="Style" />
             <End Role="Song" EntitySet="Song" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SongArtist_SongArtistType" Association="Self.FK_SongArtist_SongArtistType">
+            <End Role="SongArtistType" EntitySet="SongArtistType" />
+            <End Role="SongArtist" EntitySet="SongArtist" />
           </AssociationSet>
           <AssociationSet Name="FK_SongLink_ToSong" Association="Self.FK_SongLink_ToSong">
             <End Role="Song" EntitySet="Song" />
@@ -404,6 +433,11 @@
             <End Role="SongLinkTypes" EntitySet="SongLinkTypes" />
             <End Role="SongLink" EntitySet="SongLink" />
           </AssociationSet>
+          <EntitySet Name="SongArtistType" EntityType="MusicDBModel.SongArtistType" />
+          <AssociationSet Name="FK_SongArtist_SongArtistType" Association="MusicDBModel.FK_SongArtist_SongArtistType">
+            <End Role="SongArtistType" EntitySet="SongArtistType" />
+            <End Role="SongArtist" EntitySet="SongArtist" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Artist">
           <Key>
@@ -447,10 +481,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ListenerStyles" Relationship="MusicDBModel.FK_ListenerStyles_ToListenerProfile" FromRole="ListenerProfile" ToRole="ListenerStyles" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ListenerRecomendation">
           <Key>
@@ -489,15 +524,20 @@
           <NavigationProperty Name="SongLink" Relationship="MusicDBModel.FK_SongLink_ToSong" FromRole="Song" ToRole="SongLink" />
           <NavigationProperty Name="SongRecomandation" Relationship="MusicDBModel.FK_SongRecomandation_ToSong" FromRole="Song" ToRole="SongRecomandation" />
           <NavigationProperty Name="SongRecomandation1" Relationship="MusicDBModel.FK_SongRecomandation_ToSongs" FromRole="Song" ToRole="SongRecomandation" />
+          <Property Name="TimePeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SongArtist">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Artist" Relationship="MusicDBModel.FK_Artist_ToSongArtist" FromRole="SongArtist" ToRole="Artist" />
           <NavigationProperty Name="Song" Relationship="MusicDBModel.FK_Song_SongArtist" FromRole="SongArtist" ToRole="Song" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SongArtistType" Relationship="MusicDBModel.FK_SongArtist_SongArtistType" FromRole="SongArtist" ToRole="SongArtistType" />
+          <Property Name="PhotoLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SongLink">
           <Key>
@@ -695,6 +735,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SongArtistType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SongArtist" Relationship="MusicDBModel.FK_SongArtist_SongArtistType" FromRole="SongArtistType" ToRole="SongArtist" />
+        </EntityType>
+        <Association Name="FK_SongArtist_SongArtistType">
+          <End Type="MusicDBModel.SongArtistType" Role="SongArtistType" Multiplicity="1" />
+          <End Type="MusicDBModel.SongArtist" Role="SongArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SongArtistType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SongArtist">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -740,6 +800,7 @@
           <EntitySetMapping Name="ListenerProfile">
             <EntityTypeMapping TypeName="MusicDBModel.ListenerProfile">
               <MappingFragment StoreEntitySet="ListenerProfile">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Nationality" ColumnName="Nationality" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -769,6 +830,8 @@
           <EntitySetMapping Name="Song">
             <EntityTypeMapping TypeName="MusicDBModel.Song">
               <MappingFragment StoreEntitySet="Song">
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="TimePeriod" ColumnName="TimePeriod" />
                 <ScalarProperty Name="Style" ColumnName="Style" />
                 <ScalarProperty Name="Added" ColumnName="Added" />
                 <ScalarProperty Name="Artist" ColumnName="Artist" />
@@ -780,6 +843,8 @@
           <EntitySetMapping Name="SongArtist">
             <EntityTypeMapping TypeName="MusicDBModel.SongArtist">
               <MappingFragment StoreEntitySet="SongArtist">
+                <ScalarProperty Name="PhotoLink" ColumnName="PhotoLink" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -817,6 +882,14 @@
             <EntityTypeMapping TypeName="MusicDBModel.Style">
               <MappingFragment StoreEntitySet="Style">
                 <ScalarProperty Name="StyleName" ColumnName="StyleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SongArtistType">
+            <EntityTypeMapping TypeName="MusicDBModel.SongArtistType">
+              <MappingFragment StoreEntitySet="SongArtistType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

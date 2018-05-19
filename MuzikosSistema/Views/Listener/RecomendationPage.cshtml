@@ -1,0 +1,56 @@
+﻿@model MuzikosSistema.Models.Recomendation
+
+@{
+    ViewBag.Title = "Atrask muziką!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Atrask muziką!</h2>
+<h4>Populiariausi kūriniai</h4>
+
+<table class="table">
+    <tr>
+
+        <th>
+            Atlikėjas/Grupė
+        </th>
+        <th>
+            Dainos pavadinimas
+        </th>
+        <th>
+            Stilius
+        </th>
+        <th>
+            Laikotarpis
+        </th>
+        <th>
+            Kalba
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.mostPopularList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SongArtist.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SongName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Style1.StyleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimePeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language)
+            </td>
+            <td>
+                @Html.ActionLink("Klausyti", "Details/" + item.Id, "Music")
+            </td>
+        </tr>
+    }
+    </table>
+

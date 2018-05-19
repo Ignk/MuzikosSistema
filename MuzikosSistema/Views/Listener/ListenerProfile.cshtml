@@ -1,0 +1,89 @@
+﻿@model MuzikosSistema.Models.ListenerConsist
+
+@{
+    ViewBag.Title = "Vartotojo profilis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Vartotojo profilis</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.listener.Id)
+    @Html.HiddenFor(model => model.listener.Email)
+
+    <div class="form-group">
+        @Html.Label("Vartotojo vardas", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.listener.Username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.listener.Username, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Tautybė", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.listener.Nationality, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.listener.Nationality, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Gimimo data", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.listener.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.listener.BirthDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Išsaugoti" class="btn btn-default" />
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Pakeisti slaptažodį", "ChangePassword", "Manage")
+
+    </div>
+</div>
+    
+    <h4>Mėgiami stiliai</h4>
+    <table class="table">
+        <tr>
+            <th>
+                Stilius
+            </th>
+            <th></th>
+           
+        </tr>
+        @foreach (var item in Model.styles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Style1.StyleName)
+                </td>
+                <td>
+                    @Html.ActionLink("Pašalinti", "DeleteStyle", new { id = item.Id })
+                </td>
+                
+            </tr>
+        }
+
+    </table>
+    <p>
+        @Html.ActionLink("Pridėti stilių", "AddStyle")
+    </p>
+
+    
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

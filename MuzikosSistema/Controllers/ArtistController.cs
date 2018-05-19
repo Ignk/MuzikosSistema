@@ -4,16 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+
 
 namespace MuzikosSistema.Controllers
 {
+    [Authorize]
     public class ArtistController : Controller
     {
         private MusicDBEntities _entities = new MusicDBEntities();
         // GET: Artist
-        public ActionResult Index()
+        public ActionResult Index(string option, string search, int? pageNumber)
         {
-            return View(_entities.SongArtist.ToList());
+            if (option == "Artist")
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(_entities.SongArtist.Where(x => x.Name.Contains(search) || search == null).ToList().OrderBy(x => x.Name).ToPagedList(pageNumber ?? 1, 15));
+            }
+            else
+            {
+                return View(_entities.SongArtist.Where(x => x.SongArtistType.TypeName.Contains(search) || search == null).ToList().OrderBy(x => x.Name).ToPagedList(pageNumber ?? 1, 15));
+            }
         }
 
         // GET: Artist/Details/5
@@ -29,6 +40,8 @@ namespace MuzikosSistema.Controllers
         // GET: Artist/Create
         public ActionResult Create()
         {
+            var type = new SelectList(_entities.SongArtistType.OrderBy(a => a.TypeName), "Id", "TypeName");
+            ViewData["ArtistType"] = type;
             return View();
         }
 
@@ -51,6 +64,9 @@ namespace MuzikosSistema.Controllers
         // GET: Artist/Edit/5
         public ActionResult Edit(int id)
         {
+            var type = new SelectList(_entities.SongArtistType.OrderBy(a => a.TypeName), "Id", "TypeName");
+            ViewData["ArtistType"] = type;
+
             return View(_entities.SongArtist.Find(id));
         }
 
