@@ -32,6 +32,8 @@ namespace MuzikosSistema.Models
         public Nullable<int> Style { get; set; }
         public string TimePeriod { get; set; }
         public string Language { get; set; }
+        public string Mood { get; set; }
+        public string Pace { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }

@@ -55,44 +55,58 @@
         <dd>
             @Html.DisplayFor(model => model.song.Language)
         </dd>
+        <dt>
+            Nuotaika
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.song.Mood)
+        </dd>
+        <dt>
+            Tempas
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.song.Pace)
+        </dd>
 
 
         @if (Model.youtubeLink != null)
-        {
-            <dt>
-                Youtube
-            </dt>
-            <dd>
-                <iframe width="400" height="300" src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLink)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </dd>
-        }
+    {
+        <dt>
+            Youtube
+        </dt>
+        <dd>
+            <iframe width="400" height="300" src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLink)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </dd>
+}
         @if (Model.spotifyLink != null)
-        {
-            <dt>
-                Spotify
-            </dt>
-            <dd>
-                <iframe src="https://open.spotify.com/embed?uri=spotify:track:@Html.DisplayFor(model => model.spotifyLink)" width="400" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-            </dd>
-        }
+    {
+        <dt>
+            Spotify
+        </dt>
+        <dd>
+            <iframe src="https://open.spotify.com/embed?uri=spotify:track:@Html.DisplayFor(model => model.spotifyLink)" width="400" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </dd>
+}
         @if (Model.deezerLink != null)
-        {
-            <dt>
-                Deezer
-            </dt>
-            <dd>
-                <iframe scrolling="no" frameborder="0" allowTransparency="true" src="https://www.deezer.com/plugins/player?format=classic&autoplay=false&playlist=true&width=400&height=100&color=007FEB&layout=dark&size=medium&type=tracks&id=@Html.DisplayFor(model => model.deezerLink)&app_id=1" width="400" height="100"></iframe>
-            </dd>
-        }
+    {
+        <dt>
+            Deezer
+        </dt>
+        <dd>
+            <iframe scrolling="no" frameborder="0" allowTransparency="true" src="https://www.deezer.com/plugins/player?format=classic&autoplay=false&playlist=true&width=400&height=100&color=007FEB&layout=dark&size=medium&type=tracks&id=@Html.DisplayFor(model => model.deezerLink)&app_id=1" width="400" height="100"></iframe>
+        </dd>
+}
         @if (Model.soundCloudLink != null)
-        {
-            <dt>
-                SoundCloud
-            </dt>
-            <dd>
-                <iframe width="400" height="100%" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/@Html.DisplayFor(model => model.soundCloudLink)&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-            </dd>
-        }
+    {
+        <dt>
+            SoundCloud
+        </dt>
+        <dd>
+            <iframe width="400" height="100%" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/@Html.DisplayFor(model => model.soundCloudLink)&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+        </dd>
+}
         <dt>
             Dalintis
         </dt>
@@ -175,9 +189,7 @@
                 <th>
                     Kalba
                 </th>
-                <th>
-                    Įvesta
-                </th>
+
                 <th></th>
             </tr>
 
@@ -193,9 +205,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Language)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Added)
-                    </td>
+
                     <td>
                         @Html.ActionLink("Klausyti", "Details", new { id = item.Id })
                     </td>
@@ -204,6 +214,47 @@
 
         </table>
     }
+
+    <h4>Panašios dainos</h4>
+    <table class="table">
+        <tr>
+            <th>
+                Atlikėjas
+            </th>
+            <th>
+                Dainos pavadinimas
+            </th>
+            <th>
+                Stilius
+            </th>
+            <th>
+                Kalba
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.simillarSongs)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SongArtist.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SongName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Style1.StyleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language)
+            </td>
+            <td>
+                @Html.ActionLink("Klausyti", "Details", new { id = item.Id })
+            </td>
+        </tr>
+        }
+
+    </table>
 
     @if (Model.existsComments)
     {

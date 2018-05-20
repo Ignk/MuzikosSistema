@@ -79,9 +79,22 @@ namespace MuzikosSistema.Controllers
             songConsist.userCount = this.CountHistory(User.Identity.GetUserName(), id);
             songConsist.totalCount = _entities.History.Where(h => h.Song == id).Sum(h => h.Count);
 
+            List<SongRecomandation> songRecomendations = _entities.SongRecomandation.Where(sr => sr.Recomandation == songConsist.song.Id).ToList();
+            songRecomendations = songRecomendations.OrderBy(a => Guid.NewGuid()).ToList();
+            songRecomendations = songRecomendations.OrderByDescending(sr => sr.Rank).Take(10).ToList();
+
+            songConsist.simillarSongs = new List<Song>();
+            foreach (var songRec in songRecomendations)
+            {
+                songConsist.simillarSongs.Add(_entities.Song.Where(s => s.Id == songRec.Song).FirstOrDefault());
+            }
+
+            songConsist.simillarSongs = songConsist.simillarSongs.OrderBy(a => Guid.NewGuid()).ToList();
 
             return View(songConsist);
         }
+
+       
 
         public int CountHistory(String userName, int songId)
         {

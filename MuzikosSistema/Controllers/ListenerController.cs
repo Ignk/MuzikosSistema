@@ -143,5 +143,44 @@ namespace MuzikosSistema.Controllers
             return View(recomendation);
         }
 
+
+        public ActionResult CalculateSimillarSongRecomendations()
+        {
+            List<Song> songs = _entities.Song.ToList();
+
+            foreach (var song in songs)
+            {
+                List<Song> songsToCalculate = _entities.Song.Where(s => s.Id != song.Id).ToList();
+                foreach (var songToCalculate in songsToCalculate)
+                {
+                    SongRecomandation songRecomandation = _entities.SongRecomandation.Where(sr => sr.Song == song.Id && sr.Recomandation == songToCalculate.Id).FirstOrDefault();
+                    if (songRecomandation == null && song.SongArtist != songToCalculate.SongArtist)
+                    {
+                        songRecomandation = new SongRecomandation();
+                        songRecomandation.Song = song.Id;
+                        songRecomandation.Recomandation = songToCalculate.Id;
+                        songRecomandation.Rank = 0;
+                        if (song.Style == songToCalculate.Style)
+                            songRecomandation.Rank += 2;
+                        if (song.TimePeriod == songToCalculate.TimePeriod)
+                            songRecomandation.Rank += 2;
+                        if (song.Language == songToCalculate.Language)
+                            songRecomandation.Rank++;
+                        if (song.Mood == songToCalculate.Mood)
+                            songRecomandation.Rank++;
+                        if (song.Pace == songToCalculate.Pace)
+                            songRecomandation.Rank++;
+                        if (song.SongArtist.Type == songToCalculate.SongArtist.Type)
+                            songRecomandation.Rank++;
+                        if (song.SongArtist.Artist.FirstOrDefault().Nationality == songToCalculate.SongArtist.Artist.FirstOrDefault().Nationality)
+                            songRecomandation.Rank++;
+                        _entities.SongRecomandation.Add(songRecomandation);
+                    }
+                }
+                _entities.SaveChanges();
+            }
+            return RedirectToAction("RecomendationPage");
+        }
+
     }
 }

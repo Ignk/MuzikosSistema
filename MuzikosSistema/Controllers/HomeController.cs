@@ -13,7 +13,7 @@ namespace MuzikosSistema.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("RecomendationPage", "Listener");
         }
 
         public ActionResult About()

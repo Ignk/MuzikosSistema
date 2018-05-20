@@ -27,6 +27,7 @@ namespace MuzikosSistema.Models
         public int userCount { get; set; }
         public Boolean existsComments { get; set; }
         public List<Comment> comments { get; set; }
+        public List<Song> simillarSongs { get; set; }
     }
     public class ListenerConsist
     {
