@@ -129,7 +129,8 @@ namespace MuzikosSistema.Controllers
             {
                 _entities.Artist.Add(artistToCreate);
                 _entities.SaveChanges();
-                return RedirectToAction("Details", "Artist", _entities.SongArtist.Find(artistToCreate.SongArtist));
+                // return RedirectToAction("Details", "Artist", _entities.SongArtist.Find(artistToCreate.SongArtist));
+                return Redirect("/Artist/Details/"+ _entities.SongArtist.Find(artistToCreate.SongArtist).Id);
             }
             catch
             {

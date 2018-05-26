@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MuzikosSistema.Controllers
 {
+    [Authorize]
     public class ListenerController : Controller
     {
         private MusicDBEntities _entities = new MusicDBEntities();
@@ -138,7 +139,17 @@ namespace MuzikosSistema.Controllers
             {
                 recomendation.mostPopularList.Add(song.song);
             }
+            String username = User.Identity.GetUserName();
+            List<ListenerRecomendation> listenerRecomandations = _entities.ListenerRecomendation.Where(lr => lr.Username == username).OrderByDescending(lr => lr.Rank).Take(20).ToList();
+            listenerRecomandations = listenerRecomandations.OrderBy(a => Guid.NewGuid()).ToList();
+            listenerRecomandations = listenerRecomandations.Take(5).ToList();
 
+
+            recomendation.recomendedList = new List<Song>();
+            foreach (var listenerRecomandation in listenerRecomandations)
+            {
+                recomendation.recomendedList.Add(listenerRecomandation.Song1);
+            }
 
             return View(recomendation);
         }
@@ -179,6 +190,60 @@ namespace MuzikosSistema.Controllers
                 }
                 _entities.SaveChanges();
             }
+            return RedirectToAction("RecomendationPage");
+        }
+
+        public ActionResult CalculateSimillarListenersRecomendations()
+        {
+            _entities.Database.ExecuteSqlCommand("TRUNCATE TABLE ListenerRecomendation");
+            List<ListenerProfile> listeners = _entities.ListenerProfile.ToList();
+            foreach (var listener in listeners)
+            {
+                List<ListenerProfile> listenersToCompare = _entities.ListenerProfile.Where(l => l.Id != listener.Id).ToList();
+                foreach (var listenerToComapare in listenersToCompare)
+                {
+                    int similarityRank = 0;
+
+                    if (listener.Nationality == listenerToComapare.Nationality)
+                        similarityRank++;
+
+                    TimeSpan dateDiference = listener.BirthDate.Value - listenerToComapare.BirthDate.Value;
+                    if (Math.Abs(dateDiference.Days) < 365)
+                        similarityRank += 5;
+                    else if(Math.Abs(dateDiference.Days) < 1825)
+                        similarityRank += 3;
+                    else if (Math.Abs(dateDiference.Days) < 3650)
+                        similarityRank ++;
+
+                    List <ListenerStyles> listenerStyles = _entities.ListenerStyles.Where(ls => ls.Listener == listener.Id).ToList();
+                    foreach (var style in listenerStyles)
+                    {
+                        ListenerStyles compareStyle = _entities.ListenerStyles.Where(ls => ls.Listener == listenerToComapare.Id && ls.Style == style.Style).FirstOrDefault();
+                        if (compareStyle != null)
+                            similarityRank++;
+                    }
+                    List<History> history = _entities.History.Where(h => h.Username == listenerToComapare.Email).OrderByDescending(h => h.Count).Take(10).ToList();
+                    foreach(var historySong in history)
+                    {
+                        ListenerRecomendation recomendation = _entities.ListenerRecomendation.Where(r => r.Username == listener.Email && r.Song == historySong.Song).FirstOrDefault();
+                        if (recomendation == null)
+                        {
+                            recomendation = new ListenerRecomendation();
+                            recomendation.Song = historySong.Song;
+                            recomendation.Username = listener.Email;
+                            recomendation.Rank = similarityRank;
+                            _entities.ListenerRecomendation.Add(recomendation);
+                        }
+                        else
+                        {
+                            recomendation.Rank += similarityRank;
+                            _entities.Entry(recomendation).State = System.Data.Entity.EntityState.Modified;
+                        }
+                    }
+
+                }
+            }
+            _entities.SaveChanges();
             return RedirectToAction("RecomendationPage");
         }
 

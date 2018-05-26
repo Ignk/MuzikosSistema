@@ -285,8 +285,13 @@
 
 </div>
 <p>
-    @Html.ActionLink("Redaguoti", "Edit", new { id = Model.song.Id }) |
-    @Html.ActionLink("Pridėti nuorodą", "CreateSongLink", new { id = Model.song.Id }) |
+    @if (User.Identity.Name == "admin@admin.com")
+    {
+        @Html.ActionLink("Redaguoti", "Edit", new { id = Model.song.Id }) <text> | </text>
+        @Html.ActionLink("Pridėti nuorodą", "CreateSongLink", new { id = Model.song.Id }) <br /> <br />
+    }
+
+
     @Html.ActionLink("Palikti komentarą", "CreateComment", new { id = Model.song.Id }) |
     @Html.ActionLink("Grįžti į sąrašą", "Index")
 </p>

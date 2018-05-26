@@ -11,86 +11,93 @@
 {
         <img src="@Url.Content(Model.songArtist.PhotoLink)" alt="IMAGES"  width="400" />
 }
-<div>
-    <hr />
+        <div>
+            <hr />
 
-    <h4> Sudėtis </h4>
-    <p>
-        @Html.ActionLink("Pridėti asmenį", "CreateArtist", new { id = Model.songArtist.Id })
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                Vardas
-            </th>
-            <th>
-                Pavardė
-            </th>
-            <th>
-                Tautybė
-            </th>
-            <th>
-                Gimimo data
-            </th>
-            <th>
-                Rolė
-            </th>
-            <th>
-                Stilius
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.artists)
-        {
+            <h4> Sudėtis </h4>
+            @if (User.Identity.Name == "admin@admin.com")
+            {
+                <p>
+                @Html.ActionLink("Pridėti asmenį", "CreateArtist", new { id = Model.songArtist.Id })
+                </p>
+            }
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Surname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nationality)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BirthDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Style1.StyleName)
-                </td>
-                <td>
-                    @Html.ActionLink("Redaguoti", "EditArtist", new { id = item.Id }) |
-                    @if (item.InfoPage != null)
-                    {
-                        <a href=@Html.DisplayFor(modelItem => item.InfoPage)>Informacija </a> <text>|</text>
-                    }
-                    @Html.ActionLink("Pašalinti", "DeleteArtist", new { id = item.Id })
-                </td>
+                <th>
+                    Vardas
+                </th>
+                <th>
+                    Pavardė
+                </th>
+                <th>
+                    Tautybė
+                </th>
+                <th>
+                    Gimimo data
+                </th>
+                <th>
+                    Rolė
+                </th>
+                <th>
+                    Stilius
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
-    <h4> Kūriniai </h4>
-    <table class="table">
-        <tr>
 
-            <th>
-                Dainos pavadinimas
-            </th>
-            <th>
-                Stilius
-            </th>
-            <th>
-                Kalba
-            </th>
-            <th>
-                Įvesta
-            </th>
-            <th></th>
+            @foreach (var item in Model.artists)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nationality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Style1.StyleName)
+            </td>
+            <td>
+                @if (User.Identity.Name == "admin@admin.com")
+                {
+                    @Html.ActionLink("Redaguoti", "EditArtist", new { id = item.Id })  <text>|</text>
+                    @Html.ActionLink("Pašalinti", "DeleteArtist", new { id = item.Id }) <text>|</text>
+                }
+
+                @if (item.InfoPage != null)
+                {
+                    <a href=@Html.DisplayFor(modelItem => item.InfoPage)>Informacija </a>
+                }
+            </td>
         </tr>
+}
+        </table>
+        <h4> Kūriniai </h4>
+        <table class="table">
+            <tr>
+
+                <th>
+                    Dainos pavadinimas
+                </th>
+                <th>
+                    Stilius
+                </th>
+                <th>
+                    Kalba
+                </th>
+                <th>
+                    Įvesta
+                </th>
+                <th></th>
+            </tr>
 
         @foreach (var item in Model.songs)
         {
@@ -108,21 +115,28 @@
                 @Html.DisplayFor(modelItem => item.Added)
             </td>
             <td>
-                @Html.ActionLink("Redaguoti", "Edit/" + item.Id, "Music") |
-                @Html.ActionLink("Klausyti", "Details/" + item.Id, "Music") |
-                @Html.ActionLink("Pašalinti", "Delete/" + item.Id, "Music")
+                @if (User.Identity.Name == "admin@admin.com")
+                {
+                    @Html.ActionLink("Redaguoti", "Edit/" + item.Id, "Music") <text>|</text>
+                    @Html.ActionLink("Pašalinti", "Delete/" + item.Id, "Music") <text>|</text>
+                }
+                @Html.ActionLink("Klausyti", "Details/" + item.Id, "Music")
             </td>
         </tr>
         }
 
-    </table>
+        </table>
 
-</div>
+        </div>
 
 
-<p>
-    @Html.ActionLink("Pridėti dainą", "Create/" + Model.songArtist.Id, "Music") ||
-    @Html.ActionLink("Redaguoti", "Edit", new { id = Model.songArtist.Id }) ||
-    @Html.ActionLink("Sugrįžti į atlikėjų sąrašą", "Index")
-</p>
+        <p>
+            @if (User.Identity.Name == "admin@admin.com")
+            {
+                @Html.ActionLink("Pridėti dainą", "Create/" + Model.songArtist.Id, "Music") <text>|</text> 
+                @Html.ActionLink("Redaguoti", "Edit", new { id = Model.songArtist.Id })
+                <br /><br />
+            }
+            @Html.ActionLink("Sugrįžti į atlikėjų sąrašą", "Index")
+        </p>
 
